@@ -97,30 +97,7 @@ font-size: 16px;
     font-family: 'Righteous', cursive;
 color: red;
 }
-.swal-overlay {
-    background-color: rgba(197, 4, 250, 0.45);
 
-  }
-  .swal-modal {
-    background-color: rgba(4, 4, 4, 0.9);
-    border: 7px solid rgb(237, 5, 241);
-  }
-  .swal-title{
-    color: white;
-
-  }
-  .swal-button{
-    background-color: rgb(197, 4, 250 );
-
-  }
-  .swal-text{
-    color: white;
-
-  }
-  .swal-button:not([disabled]):hover{
-    background-color:rgba(251, 239, 6, 0.994) ;
-    color: black;
-}
 .form-control{
     background-color:rgba(243, 6, 251, 0.119);
     color: white;
@@ -142,6 +119,19 @@ input{
 }
 .igreen{
     color: green;
+}  
+div:where(.swal2-container) div:where(.swal2-popup){
+    background-color: black !important;
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm{
+    background-color: rgb(243, 6, 251) !important;
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus{
+    box-shadow:  0 0 3px 3px rgba(241, 229, 2, 0.56) !important;
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-default-outline:focus{
+    box-shadow:  0 0 3px 3px rgba(241, 229, 2, 0.56) !important;
+
 }
 
 

@@ -21,7 +21,7 @@ webSite.addEventListener("keyup", validateBorderUrl);
 // check if found data
 if (localStorage.getItem != null) {
   list = JSON.parse(localStorage.getItem("submit"));
-  display(list);
+  display();
 }
 
 function submit() {
@@ -32,29 +32,30 @@ function submit() {
       url: webSite.value,
     };
     list.push(user);
-    display(list);
+    display();
     localStorage.setItem("submit", JSON.stringify(list));
     clearData();
     clearSpanBorder();
   } else {
-    swal({
-      title: "Site Name or Url is not valid, Please follow the rules below :",
+  
+    Swal.fire({
+      icon: 'error',
+      title: 'Site Name or Url is not valid, Please follow the rules below :',
       text: `  1-Site name must contain at least 3 characters
       2-Site URL must be a valid one`,
-      icon: "error",
-    });
+    })
   }
 }
 
 //2-display
-function display(x) {
+function display() {
   cartona = "";
-  for (var i = 0; i < x.length  ; i++) {
+  for (var i = 0; i<list.length  ; i++) {
     cartona += `<tr>
 <td>${i + 1}</td>
-<td class="text-capitalize">${x[i].name}</td>
+<td class="text-capitalize">${list[i].name}</td>
 <td><a target="_blank" href="http://${
-      x[i].url
+      list[i].url
     }" class="btn btn-warning"><i class="fa-solid fa-eye pe-2"></i>Visit</a></td>
 <td><button onclick="deleteData(${i})" class="btn btn-danger "><i class="fa-solid fa-trash-can me-2"></i>Delete</button></td>
 </tr>`;
@@ -70,14 +71,25 @@ function clearData() {
 
 //4- delete
 function deleteData(index) {
-  swal({
-    title: "Deleted done!",
-    icon: "success",
-  });
-
-            list.splice(index, 1);
+   Swal.fire({
+    title: 'Are you sure?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: 'rgb(219, 5, 251)',
+    cancelButtonColor: '#fcb605',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      list.splice(index, 1);
       localStorage.setItem("submit", JSON.stringify(list));
-      display(list);
+      display();
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
+  })
     
 }
 
@@ -103,10 +115,15 @@ function checkYourSite() {
     } else {
       siteName.style = "border: 3px red solid";
       checkNameRight.innerHTML = `<i class="fa-solid fa-exclamation text-danger"></i> `;
-      swal({
+      // swal({
+      //   title: "please change your name ,because is used in list",
+      //   icon: "error",
+      // });
+      Swal.fire({
+        icon: 'error',
         title: "please change your name ,because is used in list",
-        icon: "error",
-      });
+
+      })
       break;
     }
   }}
@@ -138,3 +155,5 @@ function clearSpanBorder() {
   checkSiteRight.innerHTML = "";
   checkNameRight.innerHTML = "";
 }
+
+
